@@ -1,25 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
+	"log"
+	"spider-go/engine"
+	"spider-go/parser"
 )
 
 func main() {
-	resp, err := http.Get("http://www.zhenai.com/zhenghun")
-	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		fmt.Println("errcode :", resp.StatusCode)
-		return
-	}
+	log.SetFlags(log.Lshortfile | log.LstdFlags)
+	url := "http://www.zhenai.com/zhenghun"
+	//url := "http://album.zhenai.com/u/1177733413"
+	engine.Run(engine.Request{URL: url, ParseFunc: parser.ParseCityList})
 
-	respstr, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%s\n", respstr)
 }
