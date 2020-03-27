@@ -5,12 +5,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	//"time"
 )
 
 var errNum int
 
-func Fetch(url string) ([]byte, error) {
+//var rateLimt = time.Tick(10 * time.Millisecond)
 
+func Fetch(url string) ([]byte, error) {
+	//<-rateLimt
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Println("htt get failed:", err)
